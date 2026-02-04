@@ -358,9 +358,9 @@
 
         <hr>
 
-        <h2>Three Optimization Levers Per Agent</h2>
+        <h2>Four Optimization Levers Per Agent</h2>
 
-        <p>Each agent has three things to build and optimize:</p>
+        <p>Each agent has four things to build and optimize:</p>
 
         <table>
             <thead>
@@ -377,6 +377,11 @@
                     <td>Use the Agentic RAG app to query, trace, refine, extract</td>
                 </tr>
                 <tr>
+                    <td><strong>Retrieval Method</strong></td>
+                    <td>How the agent searches that data source</td>
+                    <td>Tune the mix of vector, keyword, hybrid, reranking per agent</td>
+                </tr>
+                <tr>
                     <td><strong>User Prompt</strong></td>
                     <td>The template that structures the input</td>
                     <td>Edit in admin UI, test with sample inputs</td>
@@ -388,6 +393,14 @@
                 </tr>
             </tbody>
         </table>
+
+        <h3>Retrieval Method Examples</h3>
+
+        <div class="agent-list">
+            <div class="agent-item"><strong>Organic Content Agent</strong> — heavier keyword search to find exact hook phrasing</div>
+            <div class="agent-item"><strong>Winner Iteration Agent</strong> — strong reranking to surface most relevant winners</div>
+            <div class="agent-item"><strong>Style-Based Agent</strong> — more vector/semantic search to find stylistically similar content</div>
+        </div>
 
         <div class="solution-box">
             <p><strong>LangSmith tracing tells you which lever to pull</strong> — see what context was retrieved, how the prompt was structured, and where the output went wrong.</p>
