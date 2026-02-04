@@ -313,6 +313,88 @@
 
         <hr>
 
+        <h2>Curated Data Sources</h2>
+
+        <p>Each agent can connect to the central knowledge base OR to a curated subset built specifically for that agent's purpose.</p>
+
+        <h3>The Layered Approach</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Layer</th>
+                    <th>What It Contains</th>
+                    <th>Use Case</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Central Knowledge Base</strong></td>
+                    <td>Everything — brand voice, winners, CASH framework, research</td>
+                    <td>Broad access when agents need flexibility</td>
+                </tr>
+                <tr>
+                    <td><strong>Curated Data Sources</strong></td>
+                    <td>Purpose-built subsets for specific agents</td>
+                    <td>Precision and consistency for production use</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>The Agentic RAG App as a Curation Tool</h3>
+
+        <p>The app we've already built helps manually curate these data sources:</p>
+
+        <ul>
+            <li>Query the main knowledge base with different search strategies</li>
+            <li>Trace with LangSmith to see exactly what's being retrieved</li>
+            <li>Fine-tune queries until you're getting the right content</li>
+            <li>Extract and save that as a curated source for a specific agent</li>
+        </ul>
+
+        <div class="highlight">
+            <p>The existing tool helps us build the optimized data sources for future agents.</p>
+        </div>
+
+        <hr>
+
+        <h2>Three Optimization Levers Per Agent</h2>
+
+        <p>Each agent has three things to build and optimize:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Lever</th>
+                    <th>What It Is</th>
+                    <th>How You Optimize</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Data Source</strong></td>
+                    <td>The curated context the agent retrieves from</td>
+                    <td>Use the Agentic RAG app to query, trace, refine, extract</td>
+                </tr>
+                <tr>
+                    <td><strong>User Prompt</strong></td>
+                    <td>The template that structures the input</td>
+                    <td>Edit in admin UI, test with sample inputs</td>
+                </tr>
+                <tr>
+                    <td><strong>System Prompt</strong></td>
+                    <td>The agent's instructions and persona</td>
+                    <td>Edit in admin UI, iterate based on output quality</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="solution-box">
+            <p><strong>LangSmith tracing tells you which lever to pull</strong> — see what context was retrieved, how the prompt was structured, and where the output went wrong.</p>
+        </div>
+
+        <hr>
+
         <h2>All Agents Live in One App</h2>
 
         <p>Instead of separate n8n workflows, all writing agents live in the same platform:</p>
