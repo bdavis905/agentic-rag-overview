@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic RAG Platform Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+            padding: 3rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #1a1a2e;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #6366f1;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: #6366f1;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: #374151;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #4b5563;
+        }
+
+        .problem-box {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .problem-box p {
+            color: #991b1b;
+            margin-bottom: 0.5rem;
+        }
+
+        .problem-box ul {
+            margin-left: 1.25rem;
+            color: #991b1b;
+        }
+
+        .problem-box li {
+            margin-bottom: 0.25rem;
+        }
+
+        .solution-box {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .solution-box p {
+            color: #166534;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #6366f1;
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        tr:last-child td:first-child {
+            border-radius: 0 0 0 8px;
+        }
+
+        tr:last-child td:last-child {
+            border-radius: 0 0 8px 0;
+        }
+
+        .highlight {
+            background: #eef2ff;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .highlight p {
+            color: #4338ca;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+
+        .agent-list {
+            display: grid;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .agent-item {
+            background: #f8fafc;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .agent-item strong {
+            color: #6366f1;
+        }
+
+        .bottom-line {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .bottom-line h2 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .bottom-line p {
+            color: rgba(255,255,255,0.95);
+            margin: 0;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.9rem;
+            color: #6366f1;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background: #e5e7eb;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agentic RAG Platform</h1>
+
+        <h2>The Problem with Standard RAG</h2>
+
+        <div class="problem-box">
+            <p><strong>Standard RAG (just vector search) isn't good enough for copywriting:</strong></p>
+            <ul>
+                <li>Semantic search alone misses exact phrases/terminology</li>
+                <li>Context quality matters more than quantity</li>
+                <li>Different questions need different retrieval strategies</li>
+            </ul>
+        </div>
+
+        <h2>The Solution — 4 Retrieval Methods</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>How It Works</th>
+                    <th>Best For</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Vector Search</strong></td>
+                    <td>Semantic similarity via embeddings</td>
+                    <td>Conceptual questions, related content</td>
+                </tr>
+                <tr>
+                    <td><strong>Keyword Search</strong></td>
+                    <td>Full-text search (tsvector)</td>
+                    <td>Exact phrases, terminology, names</td>
+                </tr>
+                <tr>
+                    <td><strong>Hybrid + RRF</strong></td>
+                    <td>Both methods fused via Reciprocal Rank Fusion</td>
+                    <td>Most queries (default)</td>
+                </tr>
+                <tr>
+                    <td><strong>Reranking</strong></td>
+                    <td>LLM re-scores top candidates for relevance</td>
+                    <td>Precision-critical queries</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="solution-box">
+            <p><strong>Result:</strong> The agent gets the <em>right</em> context, not just <em>similar</em> context.</p>
+        </div>
+
+        <h2>Agentic Capabilities</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tool</th>
+                    <th>What It Does</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>search_documents</code></td>
+                    <td>Hybrid retrieval with metadata filtering</td>
+                </tr>
+                <tr>
+                    <td><code>analyze_document</code></td>
+                    <td>Sub-agent loads FULL document for deep analysis</td>
+                </tr>
+                <tr>
+                    <td><code>query_database</code></td>
+                    <td>Text-to-SQL for structured data (winners, performance stats)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight">
+            <p>The AI <em>reasons</em> about what context it needs, then goes and gets it.</p>
+        </div>
+
+        <hr>
+
+        <h2>How This Powers the Writing Agents</h2>
+
+        <h3>1. Shared Knowledge Base</h3>
+        <ul>
+            <li>Upload brand voice docs, winning ad examples, CASH framework, client research</li>
+            <li>Multi-format support (PDF, DOCX, etc.) already built</li>
+            <li>LLM-powered metadata extraction for filtering</li>
+        </ul>
+
+        <h3>2. Writing Agents Connect to It</h3>
+        <ul>
+            <li>Each agent calls <code>search_documents</code> to get relevant context</li>
+            <li>Different agents use different metadata filters (e.g., only "winners", only "hooks")</li>
+            <li>Sub-agent pattern enables deep document analysis when needed</li>
+        </ul>
+
+        <h3>3. Observability Built-in</h3>
+        <ul>
+            <li>LangSmith tracing shows exactly what context the agent retrieved</li>
+            <li>Debug why an ad didn't come out right by seeing what it pulled</li>
+        </ul>
+
+        <hr>
+
+        <h2>All Agents Live in One App</h2>
+
+        <p>Instead of separate n8n workflows, all writing agents live in the same platform:</p>
+
+        <div class="agent-list">
+            <div class="agent-item"><strong>Organic Content Agent</strong> — viral post → ad</div>
+            <div class="agent-item"><strong>Idea-to-Ad Agent</strong> — concept → full ad</div>
+            <div class="agent-item"><strong>Winner Iteration Agent</strong> — winning ad → variations</div>
+            <div class="agent-item"><strong>Style-Based Agent</strong> — match a specific style</div>
+            <div class="agent-item"><strong>Vector-Based Agent</strong> — iterate based on winners/losers data</div>
+        </div>
+
+        <p>Each agent shares the same knowledge base, same retrieval system, same observability.</p>
+
+        <hr>
+
+        <h2>Admin UI for Prompt Management</h2>
+
+        <p>The team doesn't need to touch code to optimize agents:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>What They Can Do</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Agent list</strong></td>
+                    <td>See all agents, toggle on/off</td>
+                </tr>
+                <tr>
+                    <td><strong>Prompt editor</strong></td>
+                    <td>Edit system prompts and user prompt templates</td>
+                </tr>
+                <tr>
+                    <td><strong>Knowledge base</strong></td>
+                    <td>Upload/delete docs, see what's indexed</td>
+                </tr>
+                <tr>
+                    <td><strong>Test panel</strong></td>
+                    <td>Run an agent with sample inputs, see output</td>
+                </tr>
+                <tr>
+                    <td><strong>Settings</strong></td>
+                    <td>Model selection, temperature, retrieval settings</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight">
+            <p>Same editing experience as n8n, but purpose-built for this use case.</p>
+        </div>
+
+        <hr>
+
+        <h2>Why App-Based vs n8n</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Factor</th>
+                    <th>n8n Workflows</th>
+                    <th>App + Admin UI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Retrieval quality</strong></td>
+                    <td>Basic vector search</td>
+                    <td>Hybrid + reranking</td>
+                </tr>
+                <tr>
+                    <td><strong>Shared knowledge</strong></td>
+                    <td>Each workflow isolated</td>
+                    <td>All agents share it</td>
+                </tr>
+                <tr>
+                    <td><strong>Prompt editing</strong></td>
+                    <td>In n8n nodes</td>
+                    <td>Clean admin panel</td>
+                </tr>
+                <tr>
+                    <td><strong>Observability</strong></td>
+                    <td>Check node outputs</td>
+                    <td>LangSmith traces</td>
+                </tr>
+                <tr>
+                    <td><strong>Productization</strong></td>
+                    <td>Export workflows</td>
+                    <td>Already a web app</td>
+                </tr>
+                <tr>
+                    <td><strong>Agentic patterns</strong></td>
+                    <td>Limited</td>
+                    <td>Full tool-calling, sub-agents</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="bottom-line">
+            <h2>Bottom Line</h2>
+            <p>This is the foundation for all the writing agents. Build it right once, every agent benefits from intelligent retrieval, shared knowledge, and proper observability.</p>
+        </div>
+    </div>
+</body>
+</html>
